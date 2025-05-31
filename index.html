@@ -72,12 +72,6 @@
     #submit-btn:hover {
       background-color: #0b7dda;
     }
-    #thankyou-message {
-      margin-top: 20px;
-      font-size: 1.2em;
-      color: #28a745;
-      font-weight: bold;
-    }
   </style>
 </head>
 <body>
@@ -103,17 +97,12 @@
     </div>
   </form>
 
-  <div id="thankyou-message" style="display:none;">
-    Teşekkürler! Spotify kullanıcı adın bana ulaştı.
-  </div>
-
   <script>
     const yesBtn = document.getElementById('yes');
     const noBtn = document.getElementById('no');
     const confirmMessage = document.getElementById('confirm-message');
     const buttonArea = document.getElementById('button-area');
     const formArea = document.getElementById('form-area');
-    const thankyouMessage = document.getElementById('thankyou-message');
 
     let noClickCount = 0;
 
@@ -133,32 +122,6 @@
       confirmMessage.textContent = '';
       buttonArea.style.display = 'none';
       formArea.style.display = 'block';
-    });
-
-    formArea.addEventListener('submit', (e) => {
-      e.preventDefault(); // Sayfa yenilenmesin
-
-      const usernameInput = document.getElementById('username');
-      if (usernameInput.value.trim() === '') {
-        alert('Lütfen kullanıcı adını yaz.');
-        return;
-      }
-
-      // Formu Formspree'ye gönder
-      fetch(formArea.action, {
-        method: 'POST',
-        body: new FormData(formArea),
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          formArea.style.display = 'none';
-          thankyouMessage.style.display = 'block';
-        } else {
-          alert('Gönderim sırasında bir hata oluştu.');
-        }
-      }).catch(() => {
-        alert('Gönderim sırasında bir hata oluştu.');
-      });
     });
   </script>
 
