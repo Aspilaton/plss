@@ -39,6 +39,13 @@
     button#yes:hover {
       background-color: #45a049;
     }
+    button#no {
+      background-color: #f44336;
+      color: white;
+    }
+    button#no:hover {
+      background-color: #da190b;
+    }
     .confirm-btn {
       background-color: #f44336;
       color: white;
@@ -117,7 +124,7 @@
         if (noClickCount === 2) {
           createConfirmButton("Son kararın mı?");
         } else if (noClickCount >= 3) {
-          confirmBtn.remove(); // En son tamamen kaldır
+          confirmBtn.remove(); // Butonu tamamen kaldır
         }
       });
 
