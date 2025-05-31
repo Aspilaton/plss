@@ -1,30 +1,166 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <title>Spotify'ını Verir misin?</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flört Spotify</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    #cat-gif {
+      width: 300px;
+      margin: 20px auto;
+      display: block;
+    }
+    #question {
+      font-size: 1.2em;
+      margin: 20px 0;
+    }
+    button {
+      font-size: 1em;
+      padding: 10px 20px;
+      margin: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    button#yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+    button#yes:hover {
+      background-color: #45a049;
+    }
+    button#no {
+      background-color: #f44336;
+      color: white;
+    }
+    button#no:hover {
+      background-color: #da190b;
+    }
+    #confirm-message {
+      margin: 10px 0;
+      font-weight: bold;
+      color: #d9534f;
+    }
+    #input-area {
+      margin-top: 20px;
+    }
+    #username {
+      padding: 10px;
+      font-size: 1em;
+      width: 250px;
+    }
+    #submit-btn {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    #submit-btn:hover {
+      background-color: #0b7dda;
+    }
+    #thankyou-message {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #28a745;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Spotify'ını verirr misinn?</h2>
-        
-        <!-- Kendi istediğin kedi GIF'ini buraya ekleyebilirsin -->
-        <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Kedi" class="cat-gif">
-        
-        <div class="buttons">
-            <div id="messages"></div>
-            <button id="yesBtn">Evet</button>
-            <button id="noBtn">Hayır</button>
-        </div>
 
-        <div id="spotifyInput" style="display: none;">
-            <p>Spotify kullanıcı adını gir:</p>
-            <input type="text" id="spotifyName" placeholder="spotify_adin">
-            <button id="submitSpotify">Gönder</button>
-        </div>
+  <h1>Spotify Kullanıcı Adını Verir misin?</h1>
+  <img id="cat-gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Hareketli Kedi" />
+
+  <div id="question">
+    Spotify kullanıcı adını verir misin?
+  </div>
+
+  <div id="button-area">
+    <button id="yes">Evet</button>
+    <button id="no">Hayır</button>
+  </div>
+
+  <div id="confirm-message"></div>
+
+  <form id="form-area" style="display:none;" action="https://formspree.io/f/xzzgpoab" method="POST">
+    <div id="input-area">
+      <input type="text" id="username" name="username" placeholder="Spotify kullanıcı adını yaz" required />
+      <button type="submit" id="submit-btn">Gönder</button>
     </div>
+  </form>
 
-    <script src="script.js"></script>
+  <div id="thankyou-message" style="display:none;">
+    Teşekkürler! Spotify kullanıcı adın bana ulaştı.
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    const confirmMessage = document.getElementById('confirm-message');
+    const buttonArea = document.getElementById('button-area');
+    const formArea = document.getElementById('form-area');
+    const thankyouMessage = document.getElementById('thankyou-message');
+
+    let noClickCount = 0;
+
+    noBtn.addEventListener('click', () => {
+      noClickCount++;
+      if (noClickCount === 1) {
+        confirmMessage.textContent = 'Emin misin?';
+      } else if (noClickCount === 2) {
+        confirmMessage.textContent = 'Son kararın mı?';
+      } else if (noClickCount >= 3) {
+        confirmMessage.textContent = '';
+        noBtn.style.display = 'none'; // Hayır butonunu kaldır
+      }
+    });
+
+    yesBtn.addEventListener('click', () => {
+      confirmMessage.textContent = '';
+      buttonArea.style.display = 'none';
+      formArea.style.display = 'block';
+    });
+
+    formArea.addEventListener('submit', (e) => {
+      e.preventDefault(); // Sayfa yenilenmesin
+
+      const usernameInput = document.getElementById('username');
+      if (usernameInput.value.trim() === '') {
+        alert('Lütfen kullanıcı adını yaz.');
+        return;
+      }
+
+      // Formu Formspree'ye gönder
+      fetch(formArea.action, {
+        method: 'POST',
+        body: new FormData(formArea),
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          formArea.style.display = 'none';
+          thankyouMessage.style.display = 'block';
+        } else {
+          alert('Gönderim sırasında bir hata oluştu.');
+        }
+      }).catch(() => {
+        alert('Gönderim sırasında bir hata oluştu.');
+      });
+    });
+  </script>
+
 </body>
 </html>
