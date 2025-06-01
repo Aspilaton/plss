@@ -1,18 +1,32 @@
-document.getElementById("mainBtn").addEventListener("click", () => {
-  const signature = document.getElementById("signature");
-  const animatedText = document.getElementById("animatedText");
-  const form = document.getElementById("form-area");
+const mainBtn = document.getElementById("mainBtn");
+const mainContent = document.getElementById("mainContent");
+const signatureScreen = document.getElementById("signatureScreen");
+const agreementScreen = document.getElementById("agreementScreen");
+const formScreen = document.getElementById("formScreen");
+const bgMusic = document.getElementById("bgMusic");
 
-  // İmza göster
-  signature.classList.remove("hidden");
+mainBtn.addEventListener("click", () => {
+  // Müziği başlat (autoplay engellenirse burası çalışır)
+  bgMusic.play().catch((err) => {
+    console.log("Müzik başlatılamadı:", err);
+  });
 
-  // 3 saniye sonra imzayı gizle, yazıyı ve formu göster
+  // Ana içeriği gizle
+  mainContent.classList.add("hidden");
+
+  // İmza ekranını göster
+  signatureScreen.classList.remove("hidden");
+
+  // 3 saniye sonra imzayı gizle, anlaşma animasyonunu göster
   setTimeout(() => {
-    signature.classList.add("hidden");
-    animatedText.classList.remove("hidden");
+    signatureScreen.classList.add("hidden");
+    agreementScreen.classList.remove("hidden");
 
+    // 4 saniye sonra anlaşma yazısını gizle, formu göster
     setTimeout(() => {
-      form.classList.remove("hidden");
-    }, 1000);
+      agreementScreen.classList.add("hidden");
+      formScreen.classList.remove("hidden");
+    }, 4000);
+
   }, 3000);
 });

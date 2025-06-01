@@ -2,39 +2,43 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Eylul'e</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eylul'e Özel</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Müzik -->
-  <audio autoplay loop>
-    <source src="song.mp3" type="audio/mpeg" />
-    Tarayıcınız müzik çalmayı desteklemiyor.
-  </audio>
 
-  <!-- Başlık -->
-  <h1 class="title">Eylül'e Özel</h1>
-
-  <!-- Kedi Gif -->
-  <img id="cat-gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Kedi" />
-
-  <!-- Yuvarlak Buton -->
-  <div class="circle">
-    <button id="mainBtn">Buraya Bas</button>
+  <!-- Başlangıç içeriği -->
+  <div id="mainContent">
+    <h1>Eylül'e Özel</h1>
+    <img id="cat-gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Kedi" />
+    <div class="circle">
+      <button id="mainBtn">Buraya Bas</button>
+    </div>
+    <audio id="bgMusic" loop>
+      <source src="song.mp3" type="audio/mpeg" />
+      Tarayıcınız müzik çalmayı desteklemiyor.
+    </audio>
   </div>
 
-  <!-- İmza ve Yazı -->
-  <img id="signature" src="imza.png" alt="İmza" class="hidden" />
-  <div id="animatedText" class="hidden">
-    Anlaşmayı kabul ettiniz!<br />Telefon numaranızı girin.
+  <!-- İmza ekranı -->
+  <div id="signatureScreen" class="hidden">
+    <img src="imza.jpg" alt="İmza" id="signature" />
   </div>
 
-  <!-- Form -->
-  <form id="form-area" class="hidden" action="https://formspree.io/f/xzzgpoab" method="POST">
-    <input type="tel" name="phone" placeholder="Telefon Numaranız" required />
-    <button type="submit">Gönder</button>
-  </form>
+  <!-- Anlaşma animasyonu -->
+  <div id="agreementScreen" class="hidden">
+    <span class="agreement-text">Anlaşmayı kabul ettininn</span>
+  </div>
+
+  <!-- Telefon numarası formu -->
+  <div id="formScreen" class="hidden">
+    <form id="phoneForm" action="https://formspree.io/f/xzzgpoab" method="POST">
+      <label for="phoneInput">Telefon Numaranı aliyim:</label><br/>
+      <input type="tel" id="phoneInput" name="phone" placeholder="05xxxxxxxxx" required pattern="05[0-9]{9}" />
+      <button type="submit">Gönder</button>
+    </form>
+  </div>
 
   <script src="script.js"></script>
 </body>
