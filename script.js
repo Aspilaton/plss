@@ -1,28 +1,18 @@
-let noClickCount = 0;
+document.getElementById("mainBtn").addEventListener("click", () => {
+  const signature = document.getElementById("signature");
+  const animatedText = document.getElementById("animatedText");
+  const form = document.getElementById("form-area");
 
-document.getElementById("noBtn").addEventListener("click", () => {
-    const noBtn = document.getElementById("noBtn");
-    noClickCount++;
+  // İmza göster
+  signature.classList.remove("hidden");
 
-    if (noClickCount === 1) {
-        noBtn.textContent = "Emin misin?";
-    } else if (noClickCount === 2) {
-        noBtn.textContent = "Son kararın mı?";
-    } else if (noClickCount >= 3) {
-        noBtn.style.display = "none";
-    }
-});
+  // 3 saniye sonra imzayı gizle, yazıyı ve formu göster
+  setTimeout(() => {
+    signature.classList.add("hidden");
+    animatedText.classList.remove("hidden");
 
-document.getElementById("yesBtn").addEventListener("click", () => {
-    document.getElementById("spotifyInput").style.display = "block";
-});
-
-document.getElementById("submitSpotify").addEventListener("click", () => {
-    const name = document.getElementById("spotifyName").value;
-    if (name.trim() !== "") {
-        alert("Spotify ismi alındı: " + name);
-        // Buraya gerçek kayıt işlemi eklenebilir
-    } else {
-        alert("Lütfen kullanıcı adını gir.");
-    }
+    setTimeout(() => {
+      form.classList.remove("hidden");
+    }, 1000);
+  }, 3000);
 });

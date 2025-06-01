@@ -2,141 +2,40 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>plss</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f8ff;
-      text-align: center;
-      padding: 20px;
-    }
-    h1 {
-      color: #333;
-    }
-    #cat-gif {
-      width: 300px;
-      margin: 20px auto;
-      display: block;
-    }
-    #question {
-      font-size: 1.2em;
-      margin: 20px 0;
-    }
-    button {
-      font-size: 1em;
-      padding: 10px 20px;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-    }
-    button#yes {
-      background-color: #4CAF50;
-      color: white;
-    }
-    button#yes:hover {
-      background-color: #45a049;
-    }
-    button#no {
-      background-color: #f44336;
-      color: white;
-    }
-    button#no:hover {
-      background-color: #da190b;
-    }
-    .confirm-btn {
-      background-color: #f44336;
-      color: white;
-    }
-    .confirm-btn:hover {
-      background-color: #da190b;
-    }
-    #input-area {
-      margin-top: 20px;
-    }
-    #username {
-      padding: 10px;
-      font-size: 1em;
-      width: 250px;
-    }
-    #submit-btn {
-      padding: 10px 20px;
-      font-size: 1em;
-      background-color: #2196F3;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-left: 10px;
-    }
-    #submit-btn:hover {
-      background-color: #0b7dda;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eylul'e</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Müzik -->
+  <audio autoplay loop>
+    <source src="song.mp3" type="audio/mpeg" />
+    Tarayıcınız müzik çalmayı desteklemiyor.
+  </audio>
 
-  <h1>plss</h1>
-  <img id="cat-gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Hareketli Kedi" />
+  <!-- Başlık -->
+  <h1 class="title">Eylül'e Özel</h1>
 
-  <div id="question">Eylul hanim bunca emek karsiliginda spotify verir misiniz??</div>
+  <!-- Kedi Gif -->
+  <img id="cat-gif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Kedi" />
 
-  <div id="button-area">
-    <button id="yes">Evet</button>
-    <button id="no">Hayır</button>
+  <!-- Yuvarlak Buton -->
+  <div class="circle">
+    <button id="mainBtn">Buraya Bas</button>
   </div>
 
-  <form id="form-area" style="display:none;" action="https://formspree.io/f/xzzgpoab" method="POST">
-    <div id="input-area">
-      <input type="text" id="username" name="username" placeholder="Spotify kullanıcı adını yaz" required />
-      <button type="submit" id="submit-btn">Gönder</button>
-    </div>
+  <!-- İmza ve Yazı -->
+  <img id="signature" src="imza.png" alt="İmza" class="hidden" />
+  <div id="animatedText" class="hidden">
+    Anlaşmayı kabul ettiniz!<br />Telefon numaranızı girin.
+  </div>
+
+  <!-- Form -->
+  <form id="form-area" class="hidden" action="https://formspree.io/f/xzzgpoab" method="POST">
+    <input type="tel" name="phone" placeholder="Telefon Numaranız" required />
+    <button type="submit">Gönder</button>
   </form>
 
-  <script>
-    const yesBtn = document.getElementById('yes');
-    const noBtn = document.getElementById('no');
-    const buttonArea = document.getElementById('button-area');
-    const formArea = document.getElementById('form-area');
-
-    let noClickCount = 0;
-    let confirmBtn = null;
-
-    noBtn.addEventListener('click', () => {
-      noClickCount++;
-
-      if (noClickCount === 1) {
-        noBtn.remove(); // Hayır butonunu kaldır
-        createConfirmButton("Emin misin?");
-      }
-    });
-
-    function createConfirmButton(text) {
-      if (confirmBtn) confirmBtn.remove(); // Öncekini kaldır
-
-      confirmBtn = document.createElement('button');
-      confirmBtn.className = 'confirm-btn';
-      confirmBtn.textContent = text;
-      confirmBtn.addEventListener('click', () => {
-        noClickCount++;
-        if (noClickCount === 2) {
-          createConfirmButton("Son kararın mı?");
-        } else if (noClickCount >= 3) {
-          confirmBtn.remove(); // Butonu tamamen kaldır
-        }
-      });
-
-      buttonArea.appendChild(confirmBtn);
-    }
-
-    yesBtn.addEventListener('click', () => {
-      if (confirmBtn) confirmBtn.remove();
-      buttonArea.style.display = 'none';
-      formArea.style.display = 'block';
-    });
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
